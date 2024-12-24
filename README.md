@@ -4,3 +4,9 @@ I am learning how to use go to build APIs and this is one of the projects I have
 
 ## Resource
 [Twilio Tutorial](https://www.twilio.com/en-us/blog/build-restful-api-using-golang-and-gin)
+
+## Tools in use
+- Go
+- Gin
+- Gorm
+- MySQL

@@ -1,17 +1,24 @@
 package config
 
 import (
-	"database/sql"
 	"log"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+type User struct {
+	gorm.Model
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
 
-func ConnectDB() *sql.DB {
+var DB *gorm.DB
+
+func ConnectDB() *gorm.DB {
 
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
@@ -24,14 +31,13 @@ func ConnectDB() *sql.DB {
 	dbPort := os.Getenv("DB_PORT")
 
 	dsn := dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName
-	db, err := sql.Open("mysql", dsn)
+	// db, err := sql.Open("mysql", dsn)
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	db.AutoMigrate(&User{})
 
 	if err != nil {
 		log.Fatal("Failed to connect to database", err)
-	}
-
-	if err = db.Ping(); err != nil {
-		log.Fatal("Failed to ping database", err)
 	}
 
 	DB = db

@@ -10,9 +10,9 @@ import (
 func main() {
 	r := gin.Default()
 
-	db := config.ConnectDB()
+	config.ConnectDB()
 
-	defer db.Close()
+	// defer db.Close()
 
 	routes.SetupRoutes(r)
 
