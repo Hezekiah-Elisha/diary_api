@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
 	config.ConnectDB()
