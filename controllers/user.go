@@ -61,3 +61,27 @@ func DeleteUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "User deleted successfully"})
 }
+
+func UpdateUser(c *gin.Context) {
+	userId := c.Param("id")
+	var user models.User
+	result := config.DB.First(&user, userId)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	var input CreateUserInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	user.Name = input.Name
+	user.Email = input.Email
+	user.Password = input.Password
+	result = config.DB.Save(&user)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"user": user})
+}
