@@ -6,10 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine) {
-	r.GET("/users", controllers.GetUsers)
-	r.POST("/users", controllers.CreateUser)
-	r.GET("/users/:id", controllers.GetUser)
-	r.DELETE("/users/:id", controllers.DeleteUser)
-	r.PUT("/users/:id", controllers.UpdateUser)
+func UserRoutes(r *gin.Engine) {
+	users := r.Group("/users")
+	{
+		users.GET("/", controllers.GetUsers)
+		users.POST("/", controllers.CreateUser)
+		users.GET("/:id", controllers.GetUser)
+		users.DELETE("/:id", controllers.DeleteUser)
+		users.PUT("/:id", controllers.UpdateUser)
+	}
 }

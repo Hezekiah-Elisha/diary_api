@@ -1,6 +1,7 @@
 package config
 
 import (
+	"diary_api/models"
 	"log"
 	"os"
 
@@ -12,8 +13,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Username string `json:"username"`
-	Password string `json:"password"`
+	models.User
 }
 
 var DB *gorm.DB

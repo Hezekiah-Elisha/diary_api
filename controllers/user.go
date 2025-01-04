@@ -9,7 +9,7 @@ import (
 )
 
 type CreateUserInput struct {
-	Name     string `json:"name"`
+	Username string `json:"username"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
@@ -32,7 +32,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	user := models.User{Name: input.Name, Email: input.Email, Password: input.Password}
+	user := models.User{Username: input.Username, Email: input.Email, Password: input.Password}
 	result := config.DB.Create(&user)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
@@ -75,7 +75,7 @@ func UpdateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	user.Name = input.Name
+	user.Username = input.Username
 	user.Email = input.Email
 	user.Password = input.Password
 	result = config.DB.Save(&user)

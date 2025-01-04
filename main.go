@@ -13,9 +13,7 @@ func main() {
 
 	config.ConnectDB()
 
-	// defer db.Close()
-
 	routes.SetupRoutes(r)
 
-	r.Run(":8080")
+	r.Run(":8081")
 }
