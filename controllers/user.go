@@ -21,6 +21,12 @@ func GetUsers(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
 	}
+
+	if len(users) == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"message": "No users found"})
+		return
+	}
+
 	c.JSON(http.StatusOK, users)
 }
 
