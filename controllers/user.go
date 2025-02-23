@@ -91,3 +91,12 @@ func UpdateUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"user": user})
 }
+
+func DeleteAllUsers(c *gin.Context) {
+	result := config.DB.Unscoped().Where("1=1").Delete(&models.User{})
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "All users deleted successfully"})
+}
