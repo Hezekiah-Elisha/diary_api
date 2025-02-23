@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoutes(r *gin.Engine) {
+func UserSetupRoutes(r *gin.Engine) {
 	// r.Group("/api")
 
 	r.GET("/users", controllers.GetUsers)
