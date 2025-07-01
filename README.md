@@ -19,6 +19,7 @@ To run the project, run the following:
 1. Clone the repository
 2. Run `go mod tidy` to install the dependencies
 3. Run `go run main.go` to start the server
+> `go clean` is a command that removes object files and cached data from your Go workspace
 
 ### Usage
 
